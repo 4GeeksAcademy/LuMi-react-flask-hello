@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from 'react-router-dom'
 
 export const Private = () => {
 	const { store, actions } = useContext(Context);
-	console.log(store.userInfo)
-	console.log(store.token)
+	const navigate = useNavigate()
+	useEffect(() => {
+		if (!store.token) navigate('/login')
+	})
 	return (
 		<div>
-			{!store.token && <h1>you dont have access</h1>}
 			{store.token && <h1>{store.userInfo.email}</h1>}
 		</div>
 	);
